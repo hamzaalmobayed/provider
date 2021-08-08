@@ -9,6 +9,7 @@ class UiProvider extends StatefulWidget {
 }
 
 class _UiProviderState extends State<UiProvider> {
+  String name="hamza";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +18,8 @@ class _UiProviderState extends State<UiProvider> {
         children: [
           Text(Provider.of<TodoProvider>(context).test),
           ElevatedButton(onPressed: (){
-            Provider.of<TodoProvider>(context,listen: false).changeTest("hamza");
+            name=name=="hamza"?"ali":"hamza";
+            Provider.of<TodoProvider>(context,listen: false).changeTest(name);
           }, child: Text("change"))
         ],
       ),

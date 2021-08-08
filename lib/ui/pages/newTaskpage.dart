@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:task_provider/Models/task_model.dart';
+import 'package:task_provider/Providers/to_do_provider.dart';
 
 
 class newTaskpage extends StatefulWidget {
-  Function insert;
 
-  newTaskpage(this.insert);
 
   @override
   _newTaskpageState createState() => _newTaskpageState();
@@ -17,7 +17,7 @@ class _newTaskpageState extends State<newTaskpage> {
   String taskName;
 
   SaveTask() {
-    widget.insert(Task_model(taskName: taskName, isComplete: isComplete));
+    Provider.of<TodoProvider>(context).insertTasks(Task_model(taskName: taskName, isComplete: isComplete));
     Navigator.of(context).pop();
   }
 

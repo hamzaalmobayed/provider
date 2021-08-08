@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:task_provider/Models/task_model.dart';
+import 'package:task_provider/Providers/to_do_provider.dart';
 
 
 class TaskWidget extends StatelessWidget {
   Task_model task_model;
-  Function deleteFun, updateFun;
 
-  TaskWidget(this.task_model, this.deleteFun, this.updateFun);
+  TaskWidget(this.task_model,);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class TaskWidget extends StatelessWidget {
               value: task_model.isComplete,
               onChanged: (v) {
                 task_model.isComplete = v;
-                updateFun(task_model);
+                Provider.of<TodoProvider>(context,listen: false).updateTask(task_model);
               }),
           SizedBox(
             width: 10,
@@ -31,7 +32,7 @@ class TaskWidget extends StatelessWidget {
           Spacer(),
           IconButton(
               onPressed: () {
-                deleteFun(task_model);
+                Provider.of<TodoProvider>(context,listen: false).deleteTask(task_model);
               },
               icon: Icon(Icons.delete))
         ],

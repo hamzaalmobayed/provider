@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:task_provider/Models/task_model.dart';
+import 'package:task_provider/Providers/to_do_provider.dart';
 import 'package:task_provider/helpers/dbHelper.dart';
 import 'package:task_provider/ui/pages/allTasks.dart';
 import 'package:task_provider/ui/pages/comleteTasks.dart';
@@ -48,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (x) => newTaskpage(insertNewTask)));
+                        builder: (x) => newTaskpage()));
                   },
                   icon: Icon(Icons.add))
             ],
@@ -66,23 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          body: this.tasks == null
+          body: Provider.of<TodoProvider>(context).allTasks == null
               ? Center(
                   child: CircularProgressIndicator(),
                 )
               : TabBarView(
                   children: [
-                    AllTasks(tasks, deleteTask, updateTask),
-                    ComleteTasks(tasks, deleteTask, updateTask),
-                    InComleteTasks(tasks, deleteTask, updateTask)
+                    AllTasks(),
+                    ComleteTasks(),
+                    InComleteTasks()
                   ],
                 )),
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 1)).then((value) => getAllTasks());
-  }
+
 }
